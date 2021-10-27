@@ -12,9 +12,15 @@ const fakeData = new Map([
 ]);
 
 export default class FakeDb implements Database {
-    async find (id: number): Promise<any> {
+    async findOne (id: number): Promise<any> {
         return new Promise((resolve) => {
-            resolve(fakeData.get(id));
+            resolve({id, ...fakeData.get(id)});
         });
+    }
+    
+    async findAll(): Promise<Map<number, object>> {
+        return new Promise((resolve) => {
+            resolve(fakeData);
+        })
     }
 }

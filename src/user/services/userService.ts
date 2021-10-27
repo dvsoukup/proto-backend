@@ -1,11 +1,15 @@
-import UserRepository from "../repository/userRepository";
+import User from "../models/user";
+import { IUserRepository } from "../repository/userRepository";
 
 export default class UserService {
-    userRepository:UserRepository;
-    constructor(userRepository: UserRepository) {
+    userRepository:IUserRepository;
+    constructor(userRepository: IUserRepository) {
         this.userRepository = userRepository;
     }
-    getUserById(id: number) {
+    async getUserById(id: number) {
         return this.userRepository.getUserById(id);
+    }
+    async getRandomUsers(count: number): Promise<User[]> {
+        return this.userRepository.getRandom(count);
     }
 }

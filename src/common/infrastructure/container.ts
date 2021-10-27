@@ -1,16 +1,27 @@
 import { InjectionMode, Lifetime, asClass, createContainer, AwilixContainer } from 'awilix';
 import process from 'process';
 
-class ContainerFactory {
-    container!: AwilixContainer;
-    globs!: string[];
+export class DiContainer {
+    private static instance: DiContainer;
 
-    constructor() {
-        this.init();
+    container: AwilixContainer;
+    globs: string[];
+
+    private constructor() {
+        this.globs = this.setGlobs();
+        this.container = this.make();
     }
 
-    private init(): void {
-        this.globs = [
+    static getInstance(): DiContainer {
+        if (!DiContainer.instance) {
+            DiContainer.instance = new DiContainer();
+        }
+    
+        return DiContainer.instance;
+    }
+
+    private setGlobs(): string[] {
+        return [
             `common/**/*.js`,
             `user/**/*.js`
         ].map(dir => process.env.SERVER_DIST_DIR + dir);
@@ -34,6 +45,5 @@ class ContainerFactory {
         return this.container;
     }
 };
-const containerFactory = new ContainerFactory();
 
-export default containerFactory;
+export default DiContainer.getInstance();

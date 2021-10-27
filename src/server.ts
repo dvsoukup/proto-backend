@@ -1,11 +1,11 @@
 import {config as envConfig} from "dotenv";
 envConfig();
-
 import colors from "colors";
-import Fastify, { FastifyInstance, RegisterOptions, RequestGenericInterface } from 'fastify'
-import { AwilixContainer,  } from 'awilix';
-import containerFactory from './common/infrastructure/container';
+import Fastify, { FastifyInstance } from 'fastify'
 import process from 'process';
+import { AwilixContainer,  } from 'awilix';
+import diContainer from './common/infrastructure/container';
+
 import v1Routes from "./common/http/routes";
 
 class Bootstrap {
@@ -15,7 +15,7 @@ class Bootstrap {
 
   constructor() {
     this.server = Fastify({});
-    this.container = containerFactory.make();
+    this.container = diContainer.make();
     this.port = Number(process.env.SERVER_PORT);
   }
 
@@ -26,13 +26,13 @@ class Bootstrap {
     
       const address = this.server.server.address();
       let msg = [
-        colors.yellow("*****************************************"),
-        colors.yellow("*"),
-        `${colors.yellow("*")} ${colors.green("Server started")}`,
-        colors.yellow("*"),
-        `${colors.yellow("*")} ${colors.green("Navigate to -")} ${colors.cyan("http://localhost:" + this.port + "/api/v1/status")}`,
-        colors.yellow("*"),
-        colors.yellow("*****************************************")
+        colors.rainbow("*****************************************"),
+        "",
+        `${colors.green("Server started")}`,
+        "",
+        `${colors.green("Navigate to -")} ${colors.cyan("http://localhost:" + this.port + "/api/v1/status")}`,
+        "",
+        colors.rainbow("*****************************************")
       ].join("\n");
       console.log(msg);
     } catch (err) {
@@ -51,4 +51,4 @@ class Bootstrap {
   };
 }
 
-(new Bootstrap).start();
+(new Bootstrap()).start();

@@ -1,3 +1,4 @@
 interface Database {
-    find(id: number): Promise<any>;
+    findOne(id: number): Promise<any>;
+    findAll(): Promise<Map<number, object>>;
 }
