@@ -1,0 +1,26 @@
+{
+  "name": "qualia-backend",
+  "version": "1.0.0",
+  "description": "Sample Project",
+  "main": "dist/server.js",
+  "scripts": {
+    "start": "tsc && node dist/server.js",
+    "dev": ".\\node_modules\\.bin\\tsc-watch --onSuccess \"node .\"",
+    "test": "test"
+  },
+  "author": "Darren Soukup",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^16.11.2",
+    "awilix": "^5.0.1",
+    "dotenv": "^10.0.0",
+    "fastify": "^3.22.1",
+    "fastify-static": "^4.4.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.14",
+    "tsc-watch": "^4.5.0"
+  }
+}
