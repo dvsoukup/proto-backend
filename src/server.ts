@@ -1,6 +1,7 @@
 import {config as envConfig} from "dotenv";
 envConfig();
 
+import colors from "colors";
 import Fastify, { FastifyInstance, RegisterOptions, RequestGenericInterface } from 'fastify'
 import { AwilixContainer,  } from 'awilix';
 import containerFactory from './common/infrastructure/container';
@@ -25,11 +26,13 @@ class Bootstrap {
     
       const address = this.server.server.address();
       let msg = [
-        "*****************************************",
-        "*           Server started              *",
-        "*                                       *",
-        `*    Navigate to: localhost:${this.port}        *`,
-        "*****************************************"
+        colors.yellow("*****************************************"),
+        colors.yellow("*"),
+        `${colors.yellow("*")} ${colors.green("Server started")}`,
+        colors.yellow("*"),
+        `${colors.yellow("*")} ${colors.green("Navigate to -")} ${colors.cyan("http://localhost:" + this.port + "/api/v1/status")}`,
+        colors.yellow("*"),
+        colors.yellow("*****************************************")
       ].join("\n");
       console.log(msg);
     } catch (err) {

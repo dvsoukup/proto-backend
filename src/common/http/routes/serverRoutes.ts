@@ -4,7 +4,7 @@ import IRouter from "../interfaces/router";
 export default class ServerRoutes implements IRouter {
     routes(fastify: FastifyInstance, options: object) {          
         fastify.get('/status', async (request, reply) => {
-            reply.send({ date: new Date(), status: 'server test asdfasdf' });
+            reply.send({ date: new Date(), status: 'Fastify server running!' });
         });
     }
 }
