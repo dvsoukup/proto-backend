@@ -1,5 +1,6 @@
-import { InjectionMode, Lifetime, asClass, createContainer, AwilixContainer } from 'awilix';
+import { InjectionMode, Lifetime, asClass, createContainer, AwilixContainer, asFunction } from 'awilix';
 import process from 'process';
+import db from '../repository/interface/database';
 
 export class DiContainer {
     private static instance: DiContainer;
@@ -38,6 +39,7 @@ export class DiContainer {
                         injectionMode: InjectionMode.CLASSIC
                     }
                 });
+        this.container.register('db', asFunction(db));
         return this.container;
     }
 

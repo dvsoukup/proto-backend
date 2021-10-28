@@ -1,7 +1,7 @@
 type User = {
     firstName: string;
     lastName: string;
-    id: number;
+    id?: number;
 };
 
 export default User;

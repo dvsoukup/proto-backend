@@ -1,51 +1,59 @@
+import { Knex } from "knex";
+import { IDatabase } from "../../common/repository/interface/database";
 import User from "../models/user";
-import FakeDb from "./fakeDb";
 
-export interface IUserRepository {
-    getUserById(id: number): Promise<User>,
-    getRandom(count: number): Promise<User[]>
+
+export interface IUserDatabase extends IDatabase<User> {
+    findRandom(count: number): Promise<User[] | null>
 }
 
-export default class UserRepository implements IUserRepository {
-    db:Database;
+export default class UserRepository implements IUserDatabase {
+    db: Knex;
 
-    constructor(fakeDb: Database) {
-        this.db = fakeDb;
+    constructor(db: Knex) {
+        this.db = db;
     }
-    async getUserById(id: number): Promise<User> {
-        const data = await this.db.findOne(id);
+    async findOne(id: number): Promise<User | null> {
+        const [data] = await this.db.where({
+            id: id
+        })
+            .select('id', 'fname as firstName', 'lname as lastName')
+            .from<User>('users');
+            
         let user: User = {
             id: data.id,
-            firstName: data.fname,
-            lastName: data.lname
+            firstName: data.firstName,
+            lastName: data.lastName
         };
+
         return user;
     }
-    async getRandom(count: number): Promise<User[]> {
-        let totalCount = (await this.db.findAll()).size;
-        let ids = this.generateUniqueRandom(count, totalCount);
+
+    async find(ids: number[]): Promise<User[]> {
+        let result = await this.db.select("id", "fname as firstName", "lname as lastName")
+            .whereIn('id', ids)
+            .from<User>('users');
         
-        let userFetch = ids.map(id => {
-            return this.db.findOne(id);
-        });
-        
-        let users = await Promise.all(userFetch);
-        
-        return users.map(data => {
-            let user: User = {
-                id: data.id,
-                firstName: data.fname,
-                lastName: data.lname
-            };
-            return user;
-        });
+        return result;
+    }
+
+    async save(user: User): Promise<User> {
+        let [createdUser] = await this.db.insert({ fname: user.firstName, lname: user.lastName }, ["id", "fname as firstName", "lname as lastName"]).into('users');
+        return createdUser;
+    }
+
+    async findRandom(count: number): Promise<User[]> {
+        let [{total}] = await this.db.count<Record<string, number>[]>({total: "id"}).from('users');
+        let ids = this.generateUniqueRandom(count, total);
+
+        return this.find(ids);
     }
 
     private generateUniqueRandom(count: number, totalCount: number): number[] {
-        
+
         let randomIdsChosen = [];
         for (let index = 0; index < count; index++) {
-            let randomId = this.generateRandom(0, totalCount - 1, randomIdsChosen);
+            let randomId = this.generateRandom(1, totalCount - 1, randomIdsChosen);
             randomIdsChosen.push(randomId);
         }
         return randomIdsChosen;
