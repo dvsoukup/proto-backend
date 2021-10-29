@@ -13,7 +13,7 @@ describe("ContainerFactory", () => {
 
   it("Should have proper globs set", () => {
     let result = diInstance.globs;
-    expect(result).toContain("dist/common/**/*.js");
+    expect(result).toContain("dist/core/**/*.js");
     expect(result).toContain("dist/user/**/*.js");
     expect(result).toHaveLength(2);
   });

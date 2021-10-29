@@ -1,8 +1,8 @@
 import UserRepository, { IUserDatabase } from "../repository/userRepository";
-import db from "../../common/repository/interface/database";
+import db from "../../core/repository/interface/database";
 
 describe("User Repository", () => {
-  let userRepository: UserRepository;
+  let userRepository: IUserDatabase;
 
   beforeEach(() => {
     userRepository = new UserRepository(db);
