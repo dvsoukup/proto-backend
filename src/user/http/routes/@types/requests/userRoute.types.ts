@@ -1,10 +1,24 @@
-import { RequestGenericInterface } from "fastify"
+import { RequestGenericInterface } from "fastify";
 
 export interface IUserRequest extends RequestGenericInterface {
-    Querystring: {
-      id: string,
-      name: string
-    }
+  Params: {
+    id: string;
+  };
+}
+
+export interface IRandomUsersRequest extends RequestGenericInterface {
+  Querystring: {
+    count: number;
+  };
+}
+
+export interface IUsersPostRequest extends RequestGenericInterface {
+  Body: {
+    data: {
+      firstName: string;
+      lastName: string;
+    };
+  };
 }
 
 // export default {IUserRequest};
