@@ -22,6 +22,7 @@ class Bootstrap {
   start = async () => {
     try {
       this.registerRoutes();
+      this.setContentParsers();
       await this.server.listen(this.port);
 
       const address = this.server.server.address();
@@ -47,6 +48,9 @@ class Bootstrap {
     this.server.register(v1Routes, {
       prefix: "/api/v1",
     });
+  };
+
+  private setContentParsers = () => {
     this.server.addContentTypeParser(
       "application/json",
       { parseAs: "string" },
