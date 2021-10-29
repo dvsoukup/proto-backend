@@ -1,12 +1,12 @@
 import { config as envConfig } from "dotenv";
 envConfig();
 import colors from "colors";
-import Fastify, { FastifyInstance, FastifyError } from "fastify";
+import Fastify, { FastifyInstance } from "fastify";
 import process from "process";
 import { AwilixContainer } from "awilix";
-import diContainer from "./common/infrastructure/container";
+import diContainer from "./core/infrastructure/container";
 
-import v1Routes from "./common/http/routes";
+import v1Routes from "./core/http/routes";
 
 class Bootstrap {
   container: AwilixContainer;

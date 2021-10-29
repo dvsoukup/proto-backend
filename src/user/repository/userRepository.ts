@@ -1,5 +1,5 @@
 import knex, { Knex } from "knex";
-import { IDatabase } from "../../common/repository/interface/database";
+import { IDatabase } from "../../core/repository/interface/database";
 import User from "../models/user";
 
 export interface IUserDatabase extends IDatabase<User> {

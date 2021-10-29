@@ -1,5 +1,5 @@
 import { FastifyInstance } from "fastify";
-import IRouter from "../../../common/http/interfaces/router";
+import IRouter from "../../../core/http/interfaces/router";
 import User from "../../models/user";
 import UserService from "../../services/userService";
 import {

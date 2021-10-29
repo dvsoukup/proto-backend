@@ -4,7 +4,6 @@ import {
   asClass,
   createContainer,
   AwilixContainer,
-  asFunction,
   asValue,
 } from "awilix";
 import process from "process";
@@ -30,7 +29,7 @@ export class DiContainer {
   }
 
   private setGlobs(): string[] {
-    return [`common/**/*.js`, `user/**/*.js`].map(
+    return [`core/**/*.js`, `user/**/*.js`].map(
       (dir) => process.env.SERVER_DIST_DIR + dir
     );
   }
