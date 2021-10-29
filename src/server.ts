@@ -27,7 +27,7 @@ class Bootstrap {
 
       const address = this.server.server.address();
       let msg = [
-        colors.rainbow("*****************************************"),
+        colors.rainbow("************************************************"),
         "",
         `${colors.green("Server started")}`,
         "",
@@ -35,7 +35,7 @@ class Bootstrap {
           "http://localhost:" + this.port + "/api/v1/status"
         )}`,
         "",
-        colors.rainbow("*****************************************"),
+        colors.rainbow("************************************************"),
       ].join("\n");
       console.log(msg);
     } catch (err) {

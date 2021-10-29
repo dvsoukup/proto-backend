@@ -3,7 +3,7 @@ import { IDatabase } from "../../core/repository/interface/database";
 import User from "../models/user";
 
 export interface IUserDatabase extends IDatabase<User> {
-  findRandom(count: number): Promise<User[] | null>;
+  findRandom(count: number): Promise<User[]>;
 }
 
 export default class UserRepository implements IUserDatabase {
@@ -27,6 +27,7 @@ export default class UserRepository implements IUserDatabase {
   }
 
   async find(ids: number[]): Promise<User[]> {
+    console.log(ids);
     let result = await this.db<User>("users")
       .select("id", "fname as firstName", "lname as lastName")
       .whereIn("id", ids);
