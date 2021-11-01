@@ -6,7 +6,7 @@ import {
   IRandomUsersRequest,
   IUserRequest,
   IUsersPostRequest,
-} from "./@types/requests/userRoute.types";
+} from "./userRoute.interfaces";
 
 export default class UserRoutes implements IRouter {
   userService: UserService;
