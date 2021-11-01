@@ -27,7 +27,6 @@ export default class UserRepository implements IUserDatabase {
   }
 
   async find(ids: number[]): Promise<User[]> {
-    console.log(ids);
     let result = await this.db<User>("users")
       .select("id", "fname as firstName", "lname as lastName")
       .whereIn("id", ids);

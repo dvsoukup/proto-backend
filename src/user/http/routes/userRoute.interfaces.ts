@@ -20,5 +20,3 @@ export interface IUsersPostRequest extends RequestGenericInterface {
     };
   };
 }
-
-// export default {IUserRequest};

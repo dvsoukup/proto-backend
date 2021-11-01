@@ -2,6 +2,7 @@ import { config as envConfig } from "dotenv";
 envConfig();
 import colors from "colors";
 import Fastify, { FastifyInstance } from "fastify";
+import cors from "fastify-cors";
 import process from "process";
 import { AwilixContainer } from "awilix";
 import diContainer from "./core/infrastructure/container";
@@ -21,6 +22,7 @@ class Bootstrap {
 
   start = async () => {
     try {
+      this.registerCors();
       this.registerRoutes();
       this.setContentParsers();
       await this.server.listen(this.port);
@@ -47,6 +49,12 @@ class Bootstrap {
   private registerRoutes = () => {
     this.server.register(v1Routes, {
       prefix: "/api/v1",
+    });
+  };
+
+  private registerCors = () => {
+    this.server.register(cors, {
+      origin: true,
     });
   };
 

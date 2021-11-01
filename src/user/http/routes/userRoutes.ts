@@ -27,7 +27,7 @@ export default class UserRoutes implements IRouter {
       async (request, reply) => {
         const count = Number(request.query.count);
         let users = await this.userService.getRandomUsers(count);
-        reply.send(JSON.stringify(users));
+        reply.send(users);
       }
     );
 
