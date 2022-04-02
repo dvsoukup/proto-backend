@@ -25,7 +25,7 @@ export default class UserRoutes implements IRouter {
     fastify.get<IRandomUsersRequest>(
       "/users/random",
       async (request, reply) => {
-        const count = Number(request.query.count);
+        const count = request.query.count ? Number(request.query.count) : 50;
         let users = await this.userService.getRandomUsers(count);
         reply.send(users);
       }

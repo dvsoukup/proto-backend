@@ -15,7 +15,9 @@ class Bootstrap {
   port: number;
 
   constructor() {
-    this.server = Fastify({});
+    this.server = Fastify({
+      //logger: true,
+    });
     this.container = diContainer.make();
     this.port = Number(process.env.SERVER_PORT);
   }

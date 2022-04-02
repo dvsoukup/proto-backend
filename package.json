@@ -4,12 +4,13 @@
   "description": "Sample Project",
   "main": "dist/server.js",
   "scripts": {
-    "start": "rimraf .\\dist\\ && tsc && node dist\\server.js",
-    "build": "rimraf .\\dist\\ && tsc",
-    "dev": "rimraf .\\dist\\ && .\\node_modules\\.bin\\tsc-watch --onSuccess \"node .\"",
-    "test": "jest --coverage",
-    "test:watch": "jest --watch",
-    "format:all": "prettier --write .\\**\\*.ts"
+    "start:dev": "tsc-watch --onSuccess \"ts-node-dev --inspect -- src/server.ts\"",
+    "start": "rm -rf ./dist/ && tsc && node dist/server.js",
+    "build": "rm -rf ./dist/ && tsc",
+    "test": "jest --watch --maxWorkers=1",
+    "test:cov": "jest --coverage --maxWorkers=1",
+    "format": "prettier --write ./**/*.ts",
+    "deps": "rm -rf ./node_modules/ && yarn install"
   },
   "author": "Darren Soukup",
   "license": "ISC",
@@ -31,6 +32,9 @@
     "nodemon": "^2.0.14",
     "prettier": "^2.4.1",
     "ts-jest": "^27.0.7",
-    "tsc-watch": "^4.5.0"
+    "ts-node": "^10.7.0",
+    "ts-node-dev": "^1.1.8",
+    "tsc-watch": "^4.5.0",
+    "typescript": "^4.6.3"
   }
 }

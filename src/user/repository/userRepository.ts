@@ -12,6 +12,7 @@ export default class UserRepository implements IUserDatabase {
   constructor(db: Knex) {
     this.db = db;
   }
+
   async findOne(id: number): Promise<User | null> {
     const [data] = await this.db<User>("users")
       .select("id", "fname as firstName", "lname as lastName")
@@ -39,23 +40,23 @@ export default class UserRepository implements IUserDatabase {
       { fname: user.firstName, lname: user.lastName },
       ["id", "fname as firstName", "lname as lastName"]
     );
-
+    console.log("test"); //////
     return createdUser;
   }
 
   async findRandom(count: number): Promise<User[]> {
-    let [{ total }] = await this.db("users").count<Record<string, number>[]>(
-      "* as total"
-    );
-    let ids = this.generateUniqueRandom(count, total);
+    let result = await this.db<User>("users")
+      .select("id", "fname as firstName", "lname as lastName")
+      .limit(count)
+      .orderByRaw("NEWID()");
 
-    return this.find(ids);
+    return result;
   }
 
-  private generateUniqueRandom(count: number, totalCount: number): number[] {
+  private generateUniqueRandom(count: number): number[] {
     let randomIdsChosen = [];
     for (let index = 0; index < count; index++) {
-      let randomId = this.generateRandom(1, totalCount - 1, randomIdsChosen);
+      let randomId = this.generateRandom(1, count - 1, randomIdsChosen);
       randomIdsChosen.push(randomId);
     }
     return randomIdsChosen;
