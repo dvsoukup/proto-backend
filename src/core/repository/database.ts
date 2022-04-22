@@ -1,12 +1,6 @@
 import { knex } from "knex";
 import process from "process";
 
-export interface IDatabase<T> {
-  findOne(id: number): Promise<T | null>;
-  find(ids: number[]): Promise<T[]>;
-  save(entity: T): Promise<T | null>;
-}
-
 const db = knex({
   client: "mssql",
   connection: {

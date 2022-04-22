@@ -3,10 +3,10 @@ import { AwilixContainer } from "awilix";
 import { FastifyInstance } from "fastify";
 import IRouter from "../interfaces/router";
 
-let allRoutes = ["serverRoutes", "userRoutes"];
+let allRoutes = ["serverRoutes", "playerRoutes"];
 
 export default async (server: FastifyInstance, opts: object) => {
-  const container: AwilixContainer = containerFactory.getContainer();
+  const container: AwilixContainer = await containerFactory.getContainer();
 
   server.addHook("preHandler", async (req, res) => {
     if (res.sent) return; //stop on error (like user authentication)

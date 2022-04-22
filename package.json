@@ -4,9 +4,10 @@
   "description": "Sample Project",
   "main": "dist/server.js",
   "scripts": {
-    "start:dev": "tsc-watch --onSuccess \"ts-node-dev --inspect -- src/server.ts\"",
+    "start:dev": "tsc-watch --onSuccess \"ts-node-dev -- src/server.ts\"",
     "start": "rm -rf ./dist/ && tsc && node dist/server.js",
     "build": "rm -rf ./dist/ && tsc",
+    "build-watch": "rm -rf ./dist/ && tsc-watch",
     "test": "jest --watch --maxWorkers=1",
     "test:cov": "jest --coverage --maxWorkers=1",
     "format": "prettier --write ./**/*.ts",
@@ -17,6 +18,7 @@
   "dependencies": {
     "awilix": "^5.0.1",
     "colors": "^1.4.0",
+    "csv-parser": "^3.0.0",
     "dotenv": "^10.0.0",
     "fastify": "^3.22.1",
     "fastify-cors": "^6.0.2",

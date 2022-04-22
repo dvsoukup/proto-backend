@@ -10,7 +10,7 @@ import diContainer from "./core/infrastructure/container";
 import v1Routes from "./core/http/routes";
 
 class Bootstrap {
-  container: AwilixContainer;
+  container: AwilixContainer | undefined;
   server: FastifyInstance;
   port: number;
 
@@ -18,9 +18,12 @@ class Bootstrap {
     this.server = Fastify({
       //logger: true,
     });
-    this.container = diContainer.make();
     this.port = Number(process.env.SERVER_PORT);
   }
+
+  build = async () => {
+    this.container = await diContainer.make();
+  };
 
   start = async () => {
     try {
@@ -77,4 +80,7 @@ class Bootstrap {
   };
 }
 
-new Bootstrap().start();
+const bs = new Bootstrap();
+bs.build().then(() => {
+  return bs.start();
+});
