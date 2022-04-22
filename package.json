@@ -4,12 +4,13 @@
   "description": "Sample Project",
   "main": "dist/server.js",
   "scripts": {
-    "start:dev": "tsc-watch --onSuccess \"ts-node-dev -- src/server.ts\"",
-    "start": "rm -rf ./dist/ && tsc && node dist/server.js",
+    "start": "tsc-watch --onSuccess \"node --inspect dist/server.js\"",
+    "start:dev1": "tsc-watch --onSuccess \"ts-node-dev --inspect -- src/server.ts\"",
+    "start:dev": "rm -rf ./dist/ && tsc && node dist/server.js",
     "build": "rm -rf ./dist/ && tsc",
     "build-watch": "rm -rf ./dist/ && tsc-watch",
-    "test": "jest --watch --maxWorkers=1",
-    "test:cov": "jest --coverage --maxWorkers=1",
+    "test": "jest --runInBand",
+    "test:cov": "jest --coverage --runInBand",
     "format": "prettier --write ./**/*.ts",
     "deps": "rm -rf ./node_modules/ && yarn install"
   },
@@ -29,6 +30,8 @@
   "devDependencies": {
     "@types/jest": "^27.0.2",
     "@types/node": "^16.11.6",
+    "esbuild": "^0.14.38",
+    "esbuild-jest": "^0.5.0",
     "jest": "^27.3.1",
     "jest-mock-extended": "^2.0.4",
     "nodemon": "^2.0.14",

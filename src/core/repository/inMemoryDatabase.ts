@@ -10,23 +10,23 @@ export type CsvPlayer = {
   nameFirst: string;
   nameLast: string;
   nameGiven: string;
-  weight: number;
-  height: number;
+  weight: string;
+  height: string;
   bats: string;
   throws: string;
-  debut: Date;
-  finalGame: Date;
+  debut: string;
+  finalGame: string;
   retroID: string;
   bbrefID: string;
-  birthYear: number;
-  birthMonth: number;
-  birthDay: number;
+  birthYear: string;
+  birthMonth: string;
+  birthDay: string;
   birthCountry: string;
   birthState: string;
   birthCity: string;
-  deathYear: number;
-  deathMonth: number;
-  deathDay: number;
+  deathYear: string;
+  deathMonth: string;
+  deathDay: string;
   deathCountry: string;
   deathState: string;
   deathCity: string;
@@ -49,7 +49,6 @@ const buildInMemoryDb = (): Promise<InMemoryDbPlayer> => {
         reject(err);
       })
       .on("end", () => {
-        console.log("Finished loading inmemory db");
         resolve(db);
       });
   });

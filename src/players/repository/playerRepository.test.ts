@@ -2,52 +2,87 @@ import PlayerRespository, {
   IPlayerRepository,
 } from "../repository/playerRepository";
 
-import db from "../../core/repository/inMemoryDatabase";
+import {InMemoryDbPlayer} from "../../core/repository/inMemoryDatabase";
 
 describe("Player Repository", () => {
   let playerRespository: IPlayerRepository;
+  let fakeDb: InMemoryDbPlayer;
 
   beforeAll(async () => {
-    let inMemDb = await db();
-    playerRespository = new PlayerRespository(inMemDb);
-  });
-
-  afterAll(() => {
-    // db.destroy();
+    fakeDb = {
+      "foo": {
+          "playerID": "foo",
+          "nameFirst": "Max",
+          "nameLast": "Muncy",
+          "nameGiven": "Maxwell Steven",
+          "weight": "210",
+          "height": "72",
+          "bats": "L",
+          "throws": "R",
+          "debut": "2015-04-25",
+          "finalGame": "2016-09-29",
+          "retroID": "muncm001",
+          "bbrefID": "muncyma01",
+          "birthYear": "",
+          "birthMonth": "",
+          "birthDay": "",
+          "birthCountry": "",
+          "birthState": "",
+          "birthCity": "",
+          "deathYear": "1990",
+          "deathMonth": "8",
+          "deathDay": "25",
+          "deathCountry": "USA",
+          "deathState": "TX",
+          "deathCity": "Midland"
+      },
+      "bar": {
+          "playerID": "bar",
+          "nameFirst": "Max",
+          "nameLast": "Muncy",
+          "nameGiven": "Maxwell Steven",
+          "weight": "210",
+          "height": "72",
+          "bats": "L",
+          "throws": "R",
+          "debut": "2015-04-25",
+          "finalGame": "2016-09-29",
+          "retroID": "muncm001",
+          "bbrefID": "muncyma01",
+          "birthYear": "",
+          "birthMonth": "",
+          "birthDay": "",
+          "birthCountry": "",
+          "birthState": "",
+          "birthCity": "",
+          "deathYear": "1990",
+          "deathMonth": "8",
+          "deathDay": "25",
+          "deathCountry": "USA",
+          "deathState": "TX",
+          "deathCity": "Midland"
+      }
+    };
+    playerRespository = new PlayerRespository(fakeDb);
   });
 
   describe("findOne", () => {
     it("Should get a user by ID", async () => {
-      let result = await playerRespository.findOne("muncyma01");
+      let result = await playerRespository.findOne("foo");
       expect(result).toHaveProperty("id");
       expect(result).toHaveProperty("firstName");
       expect(result).toHaveProperty("lastName");
+      expect(result).toHaveProperty("weight");
+      expect(result).toHaveProperty("height");
+      expect(result).toHaveProperty("bats");
+      expect(result).toHaveProperty("throws");
     });
   });
 
-  // describe("find", () => {
-  //   it("Should find the ids given", async () => {
-  //     let [user1, user2, user3] = await playerRespository.find([4, 5, 6]);
-  //     expect(user1.id).toBe(4);
-  //     expect(user2.id).toBe(5);
-  //     expect(user3.id).toBe(6);
-  //   });
-  // });
-
-  // describe("findRandom", () => {
-  //   it("Should get random users given count provided", async () => {
-  //     let result = await playerRespository.findRandom(5);
-  //     expect(result.length).toBeLessThan(6);
-  //   });
-
-  //   it("should return all elements as users", async () => {
-  //     let result = await playerRespository.findRandom(5);
-
-  //     result.forEach((element) => {
-  //       expect(element).toHaveProperty("id");
-  //       expect(element).toHaveProperty("firstName");
-  //       expect(element).toHaveProperty("lastName");
-  //     });
-  //   });
-  // });
+  describe("findAll", () => {
+    it("Should get all users", async () => {
+      let result = await playerRespository.findAll();
+      expect(Object.keys(result).length).toEqual(2);
+    });
+  });
 });

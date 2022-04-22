@@ -45,18 +45,18 @@ export default class PlayerRepository implements IPlayerRepository {
 
   private dbToModel(csvPlayer: CsvPlayer): Player {
     let playerBirth: PlayerBirth = {
-      year: csvPlayer.birthYear,
-      month: csvPlayer.birthMonth,
-      day: csvPlayer.birthDay,
+      year: Number(csvPlayer.birthYear),
+      month: Number(csvPlayer.birthMonth),
+      day: Number(csvPlayer.birthDay),
       country: csvPlayer.birthCountry,
       state: csvPlayer.birthState,
       city: csvPlayer.birthCity,
     };
 
     let playerDeath: PlayerDeath = {
-      year: csvPlayer.deathYear,
-      month: csvPlayer.deathMonth,
-      day: csvPlayer.deathDay,
+      year: Number(csvPlayer.deathYear),
+      month: Number(csvPlayer.deathMonth),
+      day: Number(csvPlayer.deathDay),
       country: csvPlayer.deathCountry,
       state: csvPlayer.deathState,
       city: csvPlayer.deathCity,
@@ -67,16 +67,16 @@ export default class PlayerRepository implements IPlayerRepository {
       firstName: csvPlayer.nameFirst,
       lastName: csvPlayer.nameLast,
       givenName: csvPlayer.nameGiven,
-      weight: csvPlayer.weight,
-      height: csvPlayer.height,
+      weight: Number(csvPlayer.weight),
+      height: Number(csvPlayer.height),
       bats: csvPlayer.bats,
       throws: csvPlayer.throws,
-      debut: csvPlayer.debut,
-      finalGame: csvPlayer.finalGame,
+      debut: new Date(csvPlayer.debut),
+      finalGame: new Date(csvPlayer.finalGame),
       retroID: csvPlayer.retroID,
       bbrefID: csvPlayer.bbrefID,
-      birth: playerDeath,
-      death: playerBirth,
+      birth: playerBirth,
+      death: playerDeath,
     };
   }
 }

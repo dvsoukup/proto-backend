@@ -21,7 +21,7 @@ class Bootstrap {
     this.port = Number(process.env.SERVER_PORT);
   }
 
-  build = async () => {
+  buildContainer = async () => {
     this.container = await diContainer.make();
   };
 
@@ -81,6 +81,6 @@ class Bootstrap {
 }
 
 const bs = new Bootstrap();
-bs.build().then(() => {
+bs.buildContainer().then(() => {
   return bs.start();
 });

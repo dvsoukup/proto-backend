@@ -14,6 +14,6 @@ export default async (server: FastifyInstance, opts: object) => {
 
   allRoutes.forEach((domainRoutes: string) => {
     let routes: IRouter = container.resolve(domainRoutes);
-    routes.routes(server, opts);
+    routes.v1Routes(server, opts);
   });
 };

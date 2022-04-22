@@ -8,7 +8,7 @@ export default class PlayerService {
     this.playerRepository = playerRepository;
   }
 
-  async getPlayerById(id: string) {
+  async getPlayerById(id: string) {    
     let player = await this.playerRepository.findOne(id);
     if (!player) {
       throw new Error("User not found");
