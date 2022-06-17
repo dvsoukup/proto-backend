@@ -61,7 +61,33 @@ describe("Player Repository", () => {
           "deathCountry": "USA",
           "deathState": "TX",
           "deathCity": "Midland"
-      }
+      },
+      "baz": {
+        "playerID": "baz",
+        "nameFirst": "Max",
+        "nameLast": "Muncy",
+        "nameGiven": "Maxwell Steven",
+        "weight": "210",
+        "height": "72",
+        "bats": "L",
+        "throws": "R",
+        "debut": "2015-04-25",
+        "finalGame": "2016-09-29",
+        "retroID": "muncm001",
+        "bbrefID": "muncyma01",
+        "birthYear": "",
+        "birthMonth": "",
+        "birthDay": "",
+        "birthCountry": "",
+        "birthState": "",
+        "birthCity": "",
+        "deathYear": "1990",
+        "deathMonth": "8",
+        "deathDay": "25",
+        "deathCountry": "USA",
+        "deathState": "TX",
+        "deathCity": "Midland"
+    }
     };
     playerRespository = new PlayerRespository(fakeDb);
   });
@@ -79,10 +105,17 @@ describe("Player Repository", () => {
     });
   });
 
+  describe("find", () => {
+    it("Should get find specific users", async () => {
+      let result = await playerRespository.find(["foo", "baz"]);
+      expect(Object.keys(result).length).toEqual(2);
+    });
+  });
+
   describe("findAll", () => {
     it("Should get all users", async () => {
       let result = await playerRespository.findAll();
-      expect(Object.keys(result).length).toEqual(2);
+      expect(Object.keys(result).length).toEqual(Object.keys(fakeDb).length);
     });
   });
 });

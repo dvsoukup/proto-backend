@@ -12,26 +12,27 @@ export default class UserRoutes implements IRouter {
   }
 
   v1Routes(fastify: FastifyInstance, options: object): void {
-    fastify.get<IPlayerRequest>("/players/:id", async (request, reply) => {
-      const userId = request.params.id;
-      
+    fastify.get<IPlayerRequest>("/players", async (request, reply) => {
+      const userIds = request.query.ids.split(",");
+
       try {
-        let player = await this.playerService.getPlayerById(userId);
-        // reply.send(JSON.stringify(player));
-        const val = reply.serialize(player);
+        let player = await this.playerService.getPlayers(userIds);
         reply.send(player);
       } catch (error: any) {
         reply.status(400).send(error.message);
       }
     });
 
-    fastify.get<IPlayerRequest, ServerResponse>("/players", async (request, reply) => {
-      try {
-        let players = await this.playerService.getAllPlayers();
-        reply.send(JSON.stringify(players));
-      } catch (error: any) {
-        reply.status(400).send(error.message);
+    fastify.get<IPlayerRequest, ServerResponse>(
+      "/players/all",
+      async (request, reply) => {
+        try {
+          let players = await this.playerService.getAllPlayers();
+          reply.send(JSON.stringify(players));
+        } catch (error: any) {
+          reply.status(400).send(error.message);
+        }
       }
-    });
+    );
   }
 }

@@ -1,6 +1,3 @@
-import { PlayerBirth } from "./playerBirth";
-import { PlayerDeath } from "./playerDeath";
-
 export type Player = {
   id: string;
   firstName: string;
@@ -16,4 +13,22 @@ export type Player = {
   bbrefID?: string;
   birth?: PlayerBirth;
   death?: PlayerDeath;
+};
+
+export type PlayerBirth = {
+  year: number;
+  month: number;
+  day: number;
+  country: string;
+  state: string;
+  city: string;
+};
+
+export type PlayerDeath = {
+  year: number;
+  month: number;
+  day: number;
+  country: string;
+  state: string;
+  city: string;
 };
